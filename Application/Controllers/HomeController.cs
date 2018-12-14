@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace Application.Controllers
 {
     public class HomeController : Controller
     {
+        private dbEntities db = new dbEntities();
+
         public ActionResult Index()
         {
             return View();
