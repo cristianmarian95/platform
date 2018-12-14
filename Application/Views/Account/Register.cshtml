@@ -1,0 +1,71 @@
+﻿@using Microsoft.Ajax.Utilities
+@model Application.Models.RegisterModel
+@{ ViewBag.Title = "Register"; }
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col col-sm-12 col-md-8 col-lg-8 p-3 bg-light rounded border">
+            @if (ViewData["success"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewData["success"]
+                </div>
+            }
+            @if (ViewData["danger"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewData["danger"]
+                </div>
+            }
+            @using (Html.BeginForm("RegisterAction", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col col-sm-12 col-md-6 p3 border-right">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Email)
+                            @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control", @placeholder = "Email address" })
+                            @Html.ValidationMessageFor(Model => Model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Password)
+                            @Html.PasswordFor(Model => Model.Password, new { @class = "form-control", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(Model => Model.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.ConfirmPassword)
+                            @Html.PasswordFor(Model => Model.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm password" })
+                            @Html.ValidationMessageFor(Model => Model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col col-sm-12 col-md-6 p3">
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.FullName)
+                            @Html.TextBoxFor(Model => Model.FullName, new { @class = "form-control", @placeholder = "Full name" })
+                            @Html.ValidationMessageFor(Model => Model.FullName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.CNP)
+                            @Html.TextBoxFor(Model => Model.CNP, new { @class = "form-control", @placeholder = "CNP" })
+                            @Html.ValidationMessageFor(Model => Model.CNP, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Phone)
+                            @Html.TextBoxFor(Model => Model.Phone, new { @class = "form-control", @placeholder = "Phone number" })
+                            @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Adddress)
+                            @Html.TextBoxFor(Model => Model.Adddress, new { @class = "form-control", @placeholder = "Address" })
+                            @Html.ValidationMessageFor(Model => Model.Adddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">Register</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

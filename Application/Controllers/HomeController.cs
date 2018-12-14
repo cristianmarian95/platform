@@ -7,9 +7,10 @@ using System.Web.Mvc;
 
 namespace Application.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        private dbEntities db = new dbEntities();
+        private readonly dbEntities db = new dbEntities();
 
         public ActionResult Index()
         {
