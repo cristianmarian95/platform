@@ -1,4 +1,233 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="dbModelStoreContainer" />
+<Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FK_User_Appointed" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FK_Doctor" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="IsConfirmed" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointments_Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FK_Appointment" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FK_Service" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bils">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FK_Appointment" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Final_Price" Type="float" Nullable="false" />
+    <Property Name="Number" Type="varchar" MaxLength="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Services">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Description" Type="text" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="FK_Category" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="Content" Type="text" Nullable="false" />
+    <Property Name="FK_User" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsClosed" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ticket_Response">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Content" Type="text" Nullable="false" />
+    <Property Name="FK_User" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FK_Ticket" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="200" />
+    <Property Name="CNP" Type="varchar" MaxLength="15" />
+    <Property Name="Phone" Type="varchar" MaxLength="10" />
+    <Property Name="Group" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <Association Name="FK_Name_Appointment">
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="1" />
+    <End Role="Appointments_Service" Type="Self.Appointments_Service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments_Service">
+        <PropertyRef Name="FK_Appointment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Appointment_Bils">
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="1" />
+    <End Role="Bils" Type="Self.Bils" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bils">
+        <PropertyRef Name="FK_Appointment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Services" Type="Self.Services" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Services">
+        <PropertyRef Name="FK_Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Doctor">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="FK_Doctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Service">
+    <End Role="Services" Type="Self.Services" Multiplicity="1" />
+    <End Role="Appointments_Service" Type="Self.Appointments_Service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Services">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments_Service">
+        <PropertyRef Name="FK_Service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_User_Appointed">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="FK_User_Appointed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Response">
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+    <End Role="Ticket_Response" Type="Self.Ticket_Response" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket_Response">
+        <PropertyRef Name="FK_Ticket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Ticket">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="FK_User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Ticket_Response">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Ticket_Response" Type="Self.Ticket_Response" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket_Response">
+        <PropertyRef Name="FK_User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbModelStoreContainer">
+    <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointments_Service" EntityType="Self.Appointments_Service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bils" EntityType="Self.Bils" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticket_Response" EntityType="Self.Ticket_Response" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Name_Appointment" Association="Self.FK_Name_Appointment">
+      <End Role="Appointments" EntitySet="Appointments" />
+      <End Role="Appointments_Service" EntitySet="Appointments_Service" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Appointment_Bils" Association="Self.FK_Name_Appointment_Bils">
+      <End Role="Appointments" EntitySet="Appointments" />
+      <End Role="Bils" EntitySet="Bils" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Category" Association="Self.FK_Name_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Services" EntitySet="Services" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Doctor" Association="Self.FK_Name_Doctor">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Service" Association="Self.FK_Name_Service">
+      <End Role="Services" EntitySet="Services" />
+      <End Role="Appointments_Service" EntitySet="Appointments_Service" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_User_Appointed" Association="Self.FK_Name_User_Appointed">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Response" Association="Self.FK_Ticket_Response">
+      <End Role="Ticket" EntitySet="Ticket" />
+      <End Role="Ticket_Response" EntitySet="Ticket_Response" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Ticket" Association="Self.FK_User_Ticket">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Ticket_Response" Association="Self.FK_User_Ticket_Response">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Ticket_Response" EntitySet="Ticket_Response" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

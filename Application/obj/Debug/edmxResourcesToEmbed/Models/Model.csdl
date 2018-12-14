@@ -1,4 +1,251 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true" />
+  <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Appointments" EntityType="dbModel.Appointment" />
+    <EntitySet Name="Appointments_Service" EntityType="dbModel.Appointments_Service" />
+    <EntitySet Name="Bils" EntityType="dbModel.Bil" />
+    <EntitySet Name="Categories" EntityType="dbModel.Category" />
+    <EntitySet Name="Services" EntityType="dbModel.Service" />
+    <EntitySet Name="Tickets" EntityType="dbModel.Ticket" />
+    <EntitySet Name="Ticket_Response" EntityType="dbModel.Ticket_Response" />
+    <EntitySet Name="Users" EntityType="dbModel.User" />
+    <AssociationSet Name="FK_Name_Appointment" Association="dbModel.FK_Name_Appointment">
+      <End Role="Appointment" EntitySet="Appointments" />
+      <End Role="Appointments_Service" EntitySet="Appointments_Service" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Appointment_Bils" Association="dbModel.FK_Name_Appointment_Bils">
+      <End Role="Appointment" EntitySet="Appointments" />
+      <End Role="Bil" EntitySet="Bils" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Doctor" Association="dbModel.FK_Name_Doctor">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_User_Appointed" Association="dbModel.FK_Name_User_Appointed">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Service" Association="dbModel.FK_Name_Service">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="Appointments_Service" EntitySet="Appointments_Service" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Name_Category" Association="dbModel.FK_Name_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Service" EntitySet="Services" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Response" Association="dbModel.FK_Ticket_Response">
+      <End Role="Ticket" EntitySet="Tickets" />
+      <End Role="Ticket_Response" EntitySet="Ticket_Response" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Ticket" Association="dbModel.FK_User_Ticket">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Ticket" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Ticket_Response" Association="dbModel.FK_User_Ticket_Response">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Ticket_Response" EntitySet="Ticket_Response" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="FK_User_Appointed" Type="Guid" Nullable="false" />
+    <Property Name="FK_Doctor" Type="Guid" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Appointments_Service" Relationship="dbModel.FK_Name_Appointment" FromRole="Appointment" ToRole="Appointments_Service" />
+    <NavigationProperty Name="Bils" Relationship="dbModel.FK_Name_Appointment_Bils" FromRole="Appointment" ToRole="Bil" />
+    <NavigationProperty Name="User" Relationship="dbModel.FK_Name_Doctor" FromRole="Appointment" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="dbModel.FK_Name_User_Appointed" FromRole="Appointment" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Appointments_Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="FK_Appointment" Type="Guid" Nullable="false" />
+    <Property Name="FK_Service" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Appointment" Relationship="dbModel.FK_Name_Appointment" FromRole="Appointments_Service" ToRole="Appointment" />
+    <NavigationProperty Name="Service" Relationship="dbModel.FK_Name_Service" FromRole="Appointments_Service" ToRole="Service" />
+  </EntityType>
+  <EntityType Name="Bil">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="FK_Appointment" Type="Guid" Nullable="false" />
+    <Property Name="Final_Price" Type="Double" Nullable="false" />
+    <Property Name="Number" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Appointment" Relationship="dbModel.FK_Name_Appointment_Bils" FromRole="Bil" ToRole="Appointment" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Services" Relationship="dbModel.FK_Name_Category" FromRole="Category" ToRole="Service" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="FK_Category" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Appointments_Service" Relationship="dbModel.FK_Name_Service" FromRole="Service" ToRole="Appointments_Service" />
+    <NavigationProperty Name="Category" Relationship="dbModel.FK_Name_Category" FromRole="Service" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FK_User" Type="Guid" Nullable="false" />
+    <Property Name="IsClosed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Ticket_Response" Relationship="dbModel.FK_Ticket_Response" FromRole="Ticket" ToRole="Ticket_Response" />
+    <NavigationProperty Name="User" Relationship="dbModel.FK_User_Ticket" FromRole="Ticket" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Ticket_Response">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FK_User" Type="Guid" Nullable="false" />
+    <Property Name="FK_Ticket" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Ticket" Relationship="dbModel.FK_Ticket_Response" FromRole="Ticket_Response" ToRole="Ticket" />
+    <NavigationProperty Name="User" Relationship="dbModel.FK_User_Ticket_Response" FromRole="Ticket_Response" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CNP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Group" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Appointments" Relationship="dbModel.FK_Name_Doctor" FromRole="User" ToRole="Appointment" />
+    <NavigationProperty Name="Appointments1" Relationship="dbModel.FK_Name_User_Appointed" FromRole="User" ToRole="Appointment" />
+    <NavigationProperty Name="Tickets" Relationship="dbModel.FK_User_Ticket" FromRole="User" ToRole="Ticket" />
+    <NavigationProperty Name="Ticket_Response" Relationship="dbModel.FK_User_Ticket_Response" FromRole="User" ToRole="Ticket_Response" />
+  </EntityType>
+  <Association Name="FK_Name_Appointment">
+    <End Type="dbModel.Appointment" Role="Appointment" Multiplicity="1" />
+    <End Type="dbModel.Appointments_Service" Role="Appointments_Service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments_Service">
+        <PropertyRef Name="FK_Appointment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Appointment_Bils">
+    <End Type="dbModel.Appointment" Role="Appointment" Multiplicity="1" />
+    <End Type="dbModel.Bil" Role="Bil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bil">
+        <PropertyRef Name="FK_Appointment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Doctor">
+    <End Type="dbModel.User" Role="User" Multiplicity="1" />
+    <End Type="dbModel.Appointment" Role="Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="FK_Doctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_User_Appointed">
+    <End Type="dbModel.User" Role="User" Multiplicity="1" />
+    <End Type="dbModel.Appointment" Role="Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="FK_User_Appointed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Service">
+    <End Type="dbModel.Service" Role="Service" Multiplicity="1" />
+    <End Type="dbModel.Appointments_Service" Role="Appointments_Service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointments_Service">
+        <PropertyRef Name="FK_Service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Name_Category">
+    <End Type="dbModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="dbModel.Service" Role="Service" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Service">
+        <PropertyRef Name="FK_Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Response">
+    <End Type="dbModel.Ticket" Role="Ticket" Multiplicity="1" />
+    <End Type="dbModel.Ticket_Response" Role="Ticket_Response" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket_Response">
+        <PropertyRef Name="FK_Ticket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Ticket">
+    <End Type="dbModel.User" Role="User" Multiplicity="1" />
+    <End Type="dbModel.Ticket" Role="Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="FK_User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Ticket_Response">
+    <End Type="dbModel.User" Role="User" Multiplicity="1" />
+    <End Type="dbModel.Ticket_Response" Role="Ticket_Response" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket_Response">
+        <PropertyRef Name="FK_User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

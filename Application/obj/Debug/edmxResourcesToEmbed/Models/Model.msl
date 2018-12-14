@@ -1,4 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities" />
+  <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="dbModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="FK_Doctor" ColumnName="FK_Doctor" />
+          <ScalarProperty Name="FK_User_Appointed" ColumnName="FK_User_Appointed" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments_Service">
+      <EntityTypeMapping TypeName="dbModel.Appointments_Service">
+        <MappingFragment StoreEntitySet="Appointments_Service">
+          <ScalarProperty Name="FK_Service" ColumnName="FK_Service" />
+          <ScalarProperty Name="FK_Appointment" ColumnName="FK_Appointment" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bils">
+      <EntityTypeMapping TypeName="dbModel.Bil">
+        <MappingFragment StoreEntitySet="Bils">
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Final_Price" ColumnName="Final_Price" />
+          <ScalarProperty Name="FK_Appointment" ColumnName="FK_Appointment" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="dbModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="dbModel.Service">
+        <MappingFragment StoreEntitySet="Services">
+          <ScalarProperty Name="FK_Category" ColumnName="FK_Category" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="dbModel.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+          <ScalarProperty Name="FK_User" ColumnName="FK_User" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ticket_Response">
+      <EntityTypeMapping TypeName="dbModel.Ticket_Response">
+        <MappingFragment StoreEntitySet="Ticket_Response">
+          <ScalarProperty Name="FK_Ticket" ColumnName="FK_Ticket" />
+          <ScalarProperty Name="FK_User" ColumnName="FK_User" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="dbModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Group" ColumnName="Group" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="CNP" ColumnName="CNP" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
 </Mapping>
