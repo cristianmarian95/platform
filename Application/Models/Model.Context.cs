@@ -25,5 +25,13 @@ namespace Application.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<Appointments_Service> Appointments_Service { get; set; }
+        public virtual DbSet<Bil> Bils { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Service> Services { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<Ticket_Response> Ticket_Response { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
