@@ -23,7 +23,7 @@ namespace Application.Models
         public string Password { set; get; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Confirm Password")]
         [Required(ErrorMessage = "Please confirm the password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         [StringLength(30, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

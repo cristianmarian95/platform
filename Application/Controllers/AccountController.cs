@@ -29,6 +29,14 @@ namespace Application.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account");
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -50,7 +58,6 @@ namespace Application.Controllers
             TempData["danger"] = "Unexpected error please try again.";
             return RedirectToAction("Login", "Account");
         }
-
 
         [HttpPost]
         [AllowAnonymous]
@@ -87,7 +94,7 @@ namespace Application.Controllers
                     Address = Model.Adddress,
                     Phone = Model.Phone,
                     CNP = Model.CNP,
-                    Group = "Member"
+                    Group = Groups.Member
                 };
 
                 db.Users.Add(Data);
@@ -100,6 +107,56 @@ namespace Application.Controllers
             TempData["danger"] = "Unexpected error please try again.";
             return RedirectToAction("Register", "Account");
         }
-        
+
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UpdateMyProfile(MyProfileModel Model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                User Data = db.Users.FirstOrDefault(u => User.Identity.Name.Equals(u.Id.ToString()));
+                Data.Name = Model.FullName;
+                Data.Address = Model.Adddress;
+                Data.CNP = Model.CNP;
+                Data.Phone = Model.Phone;
+
+                TempData["success"] = "Updated personal information.";
+                return RedirectToAction("MyProfile", "Home");
+
+            }
+
+            TempData["danger"] = "Unexpected error please try again.";
+            return RedirectToAction("MyProfile", "Home");
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ChangePassword(ChangePasswordModel Model)
+        {
+            if (ModelState.IsValid)
+            {
+                User Data = db.Users.FirstOrDefault(u => User.Identity.Name.Equals(u.Id.ToString()));
+                if (Model.CurrentPassword.Equals(Data.Password))
+                {
+
+                    Data.Password = Model.Password;
+                    db.SaveChanges();
+
+                    TempData["success"] = "The passsword successfuly changed.";
+                    return RedirectToAction("MyProfile", "Home");
+
+                }
+
+                TempData["danger"] = "The current password is incorect.";
+                return RedirectToAction("MyProfile", "Home");
+
+            }
+
+            TempData["danger"] = "Unexpected error please try again.";
+            return RedirectToAction("MyProfile", "Home");
+        }
     }
 }

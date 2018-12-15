@@ -16,8 +16,22 @@ namespace Application.Controllers
 
         public ActionResult Index()
         {
-            var x = User.Identity.Name;
             return View();
+        }
+
+        public ActionResult MyProfile()
+        {
+            MyProfileModel Data = new MyProfileModel()
+            {
+                FullName = Utility.getUser(User.Identity.Name).Name,
+                Adddress = Utility.getUser(User.Identity.Name).Address,
+                CNP = Utility.getUser(User.Identity.Name).CNP,
+                Email = Utility.getUser(User.Identity.Name).Email,
+                Phone = Utility.getUser(User.Identity.Name).Phone,
+                Group = Utility.getUser(User.Identity.Name).Group
+            };
+            
+            return View(Data);
         }
     }
 }
