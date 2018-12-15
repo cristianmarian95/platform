@@ -4,19 +4,8 @@
 
 <div class="container">
     <div class="row justify-content-center mt-5">
-        <div class="col col-sm-12 col-md-8 col-lg-8 p-3 bg-light rounded border">
-            @if (ViewData["success"] != null)
-            {
-                <div class="alert alert-success" role="alert">
-                    @ViewData["success"]
-                </div>
-            }
-            @if (ViewData["danger"] != null)
-            {
-                <div class="alert alert-success" role="alert">
-                    @ViewData["danger"]
-                </div>
-            }
+        <div class="col col-sm-12 col-md-10 col-lg-10 p-3 bg-light rounded border">
+            @Html.Partial("_Alerts")
             @using (Html.BeginForm("RegisterAction", "Account"))
             {
                 @Html.AntiForgeryToken()

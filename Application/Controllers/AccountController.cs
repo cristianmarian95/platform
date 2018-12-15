@@ -38,13 +38,14 @@ namespace Application.Controllers
                 {
                     User data = db.Users.FirstOrDefault(User => User.Email == Model.Email && User.Password == Model.Password);
                     FormsAuthentication.SetAuthCookie(data.Id.ToString(), true);
+                    return RedirectToAction("Index", "Home");
                 }
 
-                ViewData["danger"] = "Email address or password incorect.";
+                TempData["danger"] = "Email address or password incorect.";
                 return RedirectToAction("Login", "Account");
             }
 
-            ViewData["danger"] = "Unexpected error please try again.";
+            TempData["danger"] = "Unexpected error please try again.";
             return RedirectToAction("Login", "Account");
         }
 
@@ -59,40 +60,42 @@ namespace Application.Controllers
 
                 if (db.Users.Any(User => User.Email == Model.Email))
                 {
-                    ViewData["danger"] = "The email address is already used.";
+                    TempData["danger"] = "The email address is already used.";
                     return RedirectToAction("Register", "Account");
                 }
 
                 if (db.Users.Any(User => User.CNP == Model.CNP))
                 {
-                    ViewData["danger"] = "The CNP is already used.";
+                    TempData["danger"] = "The CNP is already used.";
                     return RedirectToAction("Register", "Account");
                 }
 
                 if (db.Users.Any(User => User.Phone == Model.Phone))
                 {
-                    ViewData["danger"] = "The phone number is already used.";
+                    TempData["danger"] = "The phone number is already used.";
                     return RedirectToAction("Register", "Account");
                 }
 
                 User Data = new User
                 {
+                    Id = Guid.NewGuid(),
                     Email = Model.Email,
                     Password = Model.Password,
                     Name = Model.FullName,
                     Address = Model.Adddress,
                     Phone = Model.Phone,
-                    CNP = Model.CNP
+                    CNP = Model.CNP,
+                    Group = "Member"
                 };
 
                 db.Users.Add(Data);
                 db.SaveChanges();
 
-                ViewData["success"] = "Account successfuly created.";
+                TempData["success"] = "Account successfuly created.";
                 return RedirectToAction("Register", "Account");
             }
 
-            ViewData["danger"] = "Unexpected error please try again.";
+            TempData["danger"] = "Unexpected error please try again.";
             return RedirectToAction("Register", "Account");
         }
         
