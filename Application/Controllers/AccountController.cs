@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Application.Models;
+using Application.Helpers;
 
 namespace Application.Controllers
 {
     public class AccountController : Controller
     {
         private readonly dbEntities db = new dbEntities();
+        
 
         [HttpGet]
         [AllowAnonymous]
@@ -37,7 +39,7 @@ namespace Application.Controllers
                 if (db.Users.Any(User => User.Email == Model.Email && User.Password == Model.Password))
                 {
                     User data = db.Users.FirstOrDefault(User => User.Email == Model.Email && User.Password == Model.Password);
-                    FormsAuthentication.SetAuthCookie(data.Id.ToString(), true);
+                    FormsAuthentication.SetAuthCookie(data.Id.ToString(), false);
                     return RedirectToAction("Index", "Home");
                 }
 

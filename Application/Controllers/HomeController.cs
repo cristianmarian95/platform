@@ -13,8 +13,10 @@ namespace Application.Controllers
     {
         private readonly dbEntities db = new dbEntities();
 
+
         public ActionResult Index()
         {
+            var x = User.Identity.Name;
             return View();
         }
     }
