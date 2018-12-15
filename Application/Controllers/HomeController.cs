@@ -13,7 +13,6 @@ namespace Application.Controllers
     {
         private readonly dbEntities db = new dbEntities();
 
-
         public ActionResult Index()
         {
             return View();
