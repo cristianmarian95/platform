@@ -1,0 +1,26 @@
+﻿@model Application.Models.CategoryEditModel
+@{
+    ViewBag.Title = "Category Edit";
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col col-sm-12 col-md-6 col-lg-6 p-3 bg-light rounded border">
+            @Html.Partial("_Alerts")
+
+            @using (Html.BeginForm("EditAction", "Category"))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Name)
+                    @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control", @placeholder = "Email address" })
+                    @Html.ValidationMessageFor(Model => Model.Name, "", new { @class = "text-danger" })
+                </div>
+                @Html.HiddenFor(x => x.Id);
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">Edit</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
