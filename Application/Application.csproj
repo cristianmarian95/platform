@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +204,9 @@
     <Compile Include="Models\Service.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ServiceCreateModel.cs" />
+    <Compile Include="Models\ServiceEditModel.cs" />
+    <Compile Include="Models\ServiceListModel.cs" />
     <Compile Include="Models\Ticket.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -319,6 +323,9 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Service\Create.cshtml" />
+    <Content Include="Views\Service\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

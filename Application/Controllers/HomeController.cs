@@ -11,7 +11,7 @@ namespace Application.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly dbEntities db = new dbEntities();
+        private readonly dbEntities _db = new dbEntities();
 
         public ActionResult Index()
         {

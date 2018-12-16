@@ -1,0 +1,71 @@
+﻿@model Application.Models.ServiceCreateModel
+@{
+    ViewBag.Title = "Service Create";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col col-12 bg-light rounded border">
+            @Html.Partial("_Alerts")
+
+            @using (Html.BeginForm("CreateService", "Service"))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Name)
+                    @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(Model => Model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Price)
+                    @Html.TextBoxFor(Model => Model.Price, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(Model => Model.Price, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Categories)
+                    <select class="form-control" id="ServiceCategories">
+                        @foreach (var cat in @Model.Categories)
+                        {
+                            <option value="@cat.Id">@cat.Name</option>
+                        }
+                    </select>
+                    <input name="FkCategory" id="FkCategory" style="display: none"/>
+                    <textarea id="Description" name="Description" style="display: none;"></textarea>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Description)
+                    <textarea id="summernote" name="editordata"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">Create</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            tabsize: 2,
+            height: 300
+        });
+        $('#FkCategory').val($('#ServiceCategories').val());
+    });
+
+    $("#ServiceCategories").change(function () {
+        $('#FkCategory').val($('#ServiceCategories').val());
+    });
+
+    $("#summernote").on("summernote.change", function (e) {   // callback as jquery custom event 
+        let summer = $('#summernote');
+        $('#Description').val(summer.summernote('code'));
+    });
+
+    $(".summernote").trigger('summernote.change'); 
+</script>

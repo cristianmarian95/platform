@@ -12,7 +12,7 @@ namespace Application.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly dbEntities db = new dbEntities();
+        private readonly dbEntities _db = new dbEntities();
         
 
         [HttpGet]
@@ -44,9 +44,9 @@ namespace Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.Users.Any(User => User.Email == Model.Email && User.Password == Model.Password))
+                if (_db.Users.Any(User => User.Email == Model.Email && User.Password == Model.Password))
                 {
-                    User data = db.Users.FirstOrDefault(User => User.Email == Model.Email && User.Password == Model.Password);
+                    User data = _db.Users.FirstOrDefault(User => User.Email == Model.Email && User.Password == Model.Password);
                     FormsAuthentication.SetAuthCookie(data.Id.ToString(), false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -67,19 +67,19 @@ namespace Application.Controllers
             if (ModelState.IsValid)
             {
 
-                if (db.Users.Any(User => User.Email == Model.Email))
+                if (_db.Users.Any(User => User.Email == Model.Email))
                 {
                     TempData["danger"] = "The email address is already used.";
                     return RedirectToAction("Register", "Account");
                 }
 
-                if (db.Users.Any(User => User.CNP == Model.CNP))
+                if (_db.Users.Any(User => User.CNP == Model.CNP))
                 {
                     TempData["danger"] = "The CNP is already used.";
                     return RedirectToAction("Register", "Account");
                 }
 
-                if (db.Users.Any(User => User.Phone == Model.Phone))
+                if (_db.Users.Any(User => User.Phone == Model.Phone))
                 {
                     TempData["danger"] = "The phone number is already used.";
                     return RedirectToAction("Register", "Account");
@@ -97,8 +97,8 @@ namespace Application.Controllers
                     Group = Groups.Member
                 };
 
-                db.Users.Add(Data);
-                db.SaveChanges();
+                _db.Users.Add(Data);
+                _db.SaveChanges();
 
                 TempData["success"] = "Account successfuly created.";
                 return RedirectToAction("Register", "Account");
@@ -116,7 +116,7 @@ namespace Application.Controllers
             if (ModelState.IsValid)
             {
 
-                User Data = db.Users.FirstOrDefault(u => User.Identity.Name.Equals(u.Id.ToString()));
+                User Data = _db.Users.FirstOrDefault(u => User.Identity.Name.Equals(u.Id.ToString()));
                 Data.Name = Model.FullName;
                 Data.Address = Model.Adddress;
                 Data.CNP = Model.CNP;
@@ -138,12 +138,12 @@ namespace Application.Controllers
         {
             if (ModelState.IsValid)
             {
-                User Data = db.Users.FirstOrDefault(u => User.Identity.Name.Equals(u.Id.ToString()));
+                User Data = _db.Users.FirstOrDefault(u => User.Identity.Name.Equals(u.Id.ToString()));
                 if (Model.CurrentPassword.Equals(Data.Password))
                 {
 
                     Data.Password = Model.Password;
-                    db.SaveChanges();
+                    _db.SaveChanges();
 
                     TempData["success"] = "The passsword successfuly changed.";
                     return RedirectToAction("MyProfile", "Home");
