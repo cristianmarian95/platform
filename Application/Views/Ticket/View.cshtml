@@ -1,0 +1,34 @@
+﻿@model Application.Models.TicketViewModel
+@{
+    ViewBag.Title = "Ticket Page";
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-12">
+
+            @if (!Model.Ticket.IsClosed)
+            {
+                <a href="@Url.Action("CloseTicket", "Ticket", new { idTicket = Model.Ticket.Id})" class="btn btn-info">Close Ticket</a>
+                <a style="margin-left: 20px;" href="@Url.Action("CreateResponse", "Ticket", new {id = @Model.Ticket.Id})" class="btn btn-info">Answer Ticket</a>
+            }
+
+            <div class="alert alert-primary mt-3">
+                <h5 class="font-weight-bold">@Model.Ticket.Title</h5>
+                <h6>@Model.Ticket.User.Name</h6>
+                <hr />
+                @(new HtmlString(Model.Ticket.Content))
+            </div>
+
+            @foreach (var response in @Model.Response)
+            {
+                <div class="alert alert-secondary mt3">
+                    <h6>@response.User.Name</h6>
+                    <hr />
+                    @(new HtmlString(response.Content))
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

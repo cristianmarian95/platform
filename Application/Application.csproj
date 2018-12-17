@@ -160,6 +160,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,9 +205,17 @@
     <Compile Include="Models\Service.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ServiceCreateModel.cs" />
+    <Compile Include="Models\ServiceEditModel.cs" />
+    <Compile Include="Models\ServiceListModel.cs" />
     <Compile Include="Models\Ticket.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TicketAdminListModel.cs" />
+    <Compile Include="Models\TicketCreateModel.cs" />
+    <Compile Include="Models\TicketListModel.cs" />
+    <Compile Include="Models\TicketResponseCreateModel.cs" />
+    <Compile Include="Models\TicketViewModel.cs" />
     <Compile Include="Models\Ticket_Response.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -319,6 +329,14 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Service\Create.cshtml" />
+    <Content Include="Views\Service\Edit.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\Admin.cshtml" />
+    <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\View.cshtml" />
+    <Content Include="Views\Ticket\CreateResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

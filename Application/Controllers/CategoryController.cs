@@ -11,7 +11,7 @@ namespace Application.Controllers
     [Authorize]
     public class CategoryController : Controller
     {
-        private readonly dbEntities db = new dbEntities();
+        private readonly dbEntities _db = new dbEntities();
 
         [HttpGet]
         public ActionResult Index()
@@ -19,7 +19,7 @@ namespace Application.Controllers
 
             return View(new CategoryListModel
             {
-                Categories = db.Categories.ToList()
+                Categories = _db.Categories.ToList()
 
             });
         }
@@ -33,7 +33,7 @@ namespace Application.Controllers
         [HttpGet]
         public ActionResult Edit(Guid Id)
         {
-            var category = db.Categories.FirstOrDefault(x => x.Id.Equals(Id));
+            var category = _db.Categories.FirstOrDefault(x => x.Id.Equals(Id));
 
             if (category == null)
             {
@@ -51,7 +51,7 @@ namespace Application.Controllers
         [HttpGet]
         public ActionResult Delete(Guid Id)
         {
-            var category = db.Categories.FirstOrDefault(x => x.Id.Equals(Id));
+            var category = _db.Categories.FirstOrDefault(x => x.Id.Equals(Id));
 
             if (category == null)
             {
@@ -59,8 +59,8 @@ namespace Application.Controllers
                 return RedirectToAction("Index", "Category");
             }
 
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            _db.Categories.Remove(category);
+            _db.SaveChanges();
 
             return RedirectToAction("Index", "Category");
         }
@@ -80,8 +80,8 @@ namespace Application.Controllers
                 Id = Guid.NewGuid()
             };
 
-            db.Categories.Add(cat);
-            db.SaveChanges();
+            _db.Categories.Add(cat);
+            _db.SaveChanges();
 
             return RedirectToAction("Index", "Category");
         }
@@ -94,7 +94,7 @@ namespace Application.Controllers
                 return RedirectToAction("Create", "Category");
             }
 
-            var category = db.Categories.FirstOrDefault(x => x.Id.Equals(model.Id));
+            var category = _db.Categories.FirstOrDefault(x => x.Id.Equals(model.Id));
             if (category == null)
             {
                 TempData["danger"] = "Invalid ID";
@@ -102,8 +102,8 @@ namespace Application.Controllers
             }
 
             category.Name = model.Name;
-            db.Entry(category).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(category).State = EntityState.Modified;
+            _db.SaveChanges();
 
             return RedirectToAction("Index", "Category");
         }

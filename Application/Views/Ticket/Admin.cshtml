@@ -1,0 +1,36 @@
+﻿@model Application.Models.TicketAdminListModel
+@{
+    ViewBag.Title = "Ticket Admin";
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-12">
+            @Html.Partial("_Alerts")
+
+            @foreach (var ticket in @Model.Ticktes)
+            {
+                if (!ticket.IsClosed)
+                {
+                    <div class="alert alert-success mt-3" role="alert">
+                        <span>
+                            <a href="Ticket/View/@ticket.Id">@ticket.Title</a>
+                        </span>
+                        <span class="text-right">
+                            <a href="@Url.Action("CloseTicket", "Ticket", new { idTicket = ticket.Id})" class="btn btn-info">Close</a>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <a href="Ticket/View/@ticket.Id">@ticket.Title</a>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</div>
+
+

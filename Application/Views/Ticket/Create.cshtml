@@ -1,0 +1,55 @@
+﻿@using Microsoft.Ajax.Utilities
+@model Application.Models.TicketCreateModel
+@{
+    ViewBag.Title = "Ticket Create";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col col-12 bg-light rounded border">
+            @Html.Partial("_Alerts")
+
+            @using (Html.BeginForm("CreateTicket", "Ticket"))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Title)
+                    @Html.TextBoxFor(Model => Model.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(Model => Model.Title, "", new { @class = "text-danger" })
+                </div>
+
+                <input name="FkUser" id="FkUser" style="display: none" value="@Model.FkUser" />
+                <input name="IsClosed" id="IsClosed" style="display: none" value="@Model.IsClosed" />
+                <textarea id="Content" name="Content" style="display: none;"></textarea>
+
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Content)
+                    <textarea id="summernote" name="editordata"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">Create</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            tabsize: 2,
+            height: 300
+        });
+    });
+
+    $("#summernote").on("summernote.change", function (e) {   // callback as jquery custom event
+        let summer = $('#summernote');
+        $('#Content').val(summer.summernote('code'));
+    });
+
+    $(".summernote").trigger('summernote.change');
+</script>
