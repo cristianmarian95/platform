@@ -1,0 +1,50 @@
+﻿@model ICollection<Application.Models.Appointment>
+@{
+    ViewBag.Title = "MyServices";
+}
+
+<div class="container mt-5 p-3 border rounded bg-light">
+    <h4>My Services</h4>
+    @Html.Partial("_Alerts")
+
+    @if (Model.ToList().Count() == 0)
+    {
+    <center>
+        <h5 class="text-info">No services to display</h5>
+    </center>
+    }
+    else
+    {
+        <table class="table table-striped border rounded">
+            <thead>
+                <tr>
+                    <th>Service Name</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Doctor</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var App in Model.OrderBy(Data => Data.IsConfirmed).ToList())
+                {
+                    <tr>
+                        <td>@App.Appointments_Service.First().Service.Name</td>
+                        <td>@App.Appointments_Service.First().Service.Price lei</td>
+                        <td>@App.Date</td>
+                        <td>@if (App.IsConfirmed)
+                        {<span class="badge badge-success">Confirmed</span>}
+                        else
+                        {<span class="badge badge-warning">On Hold</span>}</td>
+                        <th>@Application.Helpers.Utility.GetUser(App.FK_Doctor.ToString()).Name</th>
+                        <td>
+                            <a href="@Url.Action("DeleteAppointment", "Appointment", new {id = App.Id})" class="btn btn-sm btn-danger">Cancel</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

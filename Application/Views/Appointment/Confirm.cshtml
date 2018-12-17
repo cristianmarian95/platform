@@ -1,0 +1,56 @@
+﻿@model ICollection<Application.Models.Appointment>
+@{
+    ViewBag.Title = "Confirm Appointments";
+}
+
+<div class="container mt-5 p-3 border rounded bg-light">
+    <h4>My Services</h4>
+    @Html.Partial("_Alerts")
+
+    @if (Model.ToList().Count() == 0)
+    {
+        <center>
+            <h5 class="text-info">No services to display</h5>
+        </center>
+    }
+    else
+    {
+        <table class="table table-striped border rounded">
+            <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Client</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var App in Model.ToList())
+            {
+                <tr>
+                    <td>@App.Appointments_Service.First().Service.Name</td>
+                    <td>@App.Appointments_Service.First().Service.Price lei</td>
+                    <td>@App.Date</td>
+                    <td>@if (App.IsConfirmed)
+                        {<span class="badge badge-success">Confirmed</span>}
+                        else
+                        {<span class="badge badge-warning">On Hold</span>}</td>
+                    <th>@Application.Helpers.Utility.GetUser(App.FK_User_Appointed.ToString()).Name</th>
+                    <td>
+                        @if (!App.IsConfirmed)
+                        {
+                            <a href="@Url.Action("ConfirmAppointment", "Appointment", new {id = App.Id})" class="btn btn-sm btn-success">Confirm</a>
+                        }
+
+                        <a href="@Url.Action("CancelAppointment", "Appointment", new {id = App.Id})" class="btn btn-sm btn-danger">Remove</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+
+</div>
+

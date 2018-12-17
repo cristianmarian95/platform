@@ -7,7 +7,7 @@
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="FK_User_Appointed" Type="uniqueidentifier" Nullable="false" />
     <Property Name="FK_Doctor" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Date" Type="varchar(max)" Nullable="false" />
     <Property Name="IsConfirmed" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Appointments_Service">

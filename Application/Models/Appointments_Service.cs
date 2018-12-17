@@ -18,7 +18,7 @@ namespace Application.Models
         public System.Guid FK_Appointment { get; set; }
         public System.Guid FK_Service { get; set; }
     
-        public virtual Appointment Appointment { get; set; }
         public virtual Service Service { get; set; }
+        public virtual Appointment Appointment { get; set; }
     }
 }

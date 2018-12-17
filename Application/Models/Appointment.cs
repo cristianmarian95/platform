@@ -24,7 +24,7 @@ namespace Application.Models
         public System.Guid Id { get; set; }
         public System.Guid FK_User_Appointed { get; set; }
         public System.Guid FK_Doctor { get; set; }
-        public System.DateTime Date { get; set; }
+        public string Date { get; set; }
         public bool IsConfirmed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,7 +11,33 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("MyProfile", "Home")">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("MyProfile", "Home")">My Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("MyServices", "Appointment")">My Services</a></li>
+                    if (Application.Helpers.Utility.IsDoctor())
+                     {
+                         <li class="nav-item dropdown">
+                             <a class="nav-link dropdown-toggle" href="#" id="doctor" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Doctor
+                             </a>
+                             <div class="dropdown-menu" aria-labelledby="doctor">
+                                 <a class="dropdown-item" href="@Url.Action("Confirm", "Appointment")">Appointments</a>
+                             </div>
+                         </li>
+                     }
+                    if (Application.Helpers.Utility.IsAdmin())
+                     {
+                         <li class="nav-item dropdown">
+                             <a class="nav-link dropdown-toggle" href="#" id="doctor" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Admin
+                             </a>
+                             <div class="dropdown-menu" aria-labelledby="doctor">
+                                 <a class="dropdown-item" href="#">Users</a>
+                                 <a class="dropdown-item" href="#">Category</a>
+                                 <a class="dropdown-item" href="#">Service</a>
+                                 <a class="dropdown-item" href="#">Tickets</a>
+                             </div>
+                         </li>
+                     }
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Logout", "Account")">Logout</a></li>
                 }
                 else
