@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Application.Helpers;
 using Application.Models;
 
 namespace Application.Controllers
@@ -14,6 +15,7 @@ namespace Application.Controllers
         private readonly dbEntities _db = new dbEntities();
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Index()
         {
             return View(new ServiceListModel
@@ -41,6 +43,7 @@ namespace Application.Controllers
 
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Create()
         {
             return View(new ServiceCreateModel
@@ -50,6 +53,7 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Edit(Guid id)
         {
             var service = _db.Services.FirstOrDefault(x => x.Id.Equals(id));
@@ -73,6 +77,7 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Delete(Guid id)
         {
             var service = _db.Services.FirstOrDefault(x => x.Id.Equals(id));
@@ -121,6 +126,7 @@ namespace Application.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
+        [Permission(Groups = "Admin")]
         public ActionResult EditService(ServiceEditModel model)
         {
             if (!ModelState.IsValid)

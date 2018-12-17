@@ -29,6 +29,7 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Admin()
         {
             var list = _db.Tickets.ToList();

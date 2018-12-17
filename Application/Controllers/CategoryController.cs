@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Application.Helpers;
 
 namespace Application.Controllers
 {
@@ -14,6 +15,7 @@ namespace Application.Controllers
         private readonly dbEntities _db = new dbEntities();
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Index()
         {
 
@@ -25,12 +27,14 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Edit(Guid Id)
         {
             var category = _db.Categories.FirstOrDefault(x => x.Id.Equals(Id));
@@ -49,6 +53,7 @@ namespace Application.Controllers
         }
 
         [HttpGet]
+        [Permission(Groups = "Admin")]
         public ActionResult Delete(Guid Id)
         {
             var category = _db.Categories.FirstOrDefault(x => x.Id.Equals(Id));
@@ -66,6 +71,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
+        [Permission(Groups = "Admin")]
         public ActionResult CreateAction(CategoryCreateModel model)
         {
             if (!ModelState.IsValid)
@@ -86,6 +92,8 @@ namespace Application.Controllers
             return RedirectToAction("Index", "Category");
         }
 
+        [HttpPost]
+        [Permission(Groups = "Admin")]
         public ActionResult EditAction(CategoryEditModel model)
         {
             if (!ModelState.IsValid)
