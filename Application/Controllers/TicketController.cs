@@ -132,6 +132,11 @@ namespace Application.Controllers
                 return RedirectToAction("View", "Ticket");
             }
 
+            if (model.Content == null)
+            {
+                return RedirectToAction("Index", "Ticket");
+            }
+
             var ticketId = Guid.Parse(model.FkTicket);
 
             var ticketResponse = new Ticket_Response

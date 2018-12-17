@@ -79,6 +79,11 @@ namespace Application.Controllers
                 return RedirectToAction("Index", "Service");
             }
 
+            if (model.Description == null)
+            {
+                return RedirectToAction("Index", "Service");
+            }
+
             var categoryId = Guid.Parse(model.FkCategory);
             var service = new Service
             {
@@ -101,6 +106,11 @@ namespace Application.Controllers
         public ActionResult EditService(ServiceEditModel model)
         {
             if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Service");
+            }
+
+            if (model.Description == null)
             {
                 return RedirectToAction("Index", "Service");
             }
