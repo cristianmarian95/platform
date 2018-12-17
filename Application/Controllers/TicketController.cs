@@ -99,6 +99,11 @@ namespace Application.Controllers
         public ActionResult CreateTicket(TicketCreateModel model)
         {
 
+            if (model.Content == null)
+            {
+                return RedirectToAction("Index", "Ticket");
+            }
+
             var ticketId = Guid.NewGuid();
             var ticket = new Ticket
             {
