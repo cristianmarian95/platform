@@ -1,17 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
-    <EntitySetMapping Name="Appointments">
-      <EntityTypeMapping TypeName="dbModel.Appointment">
-        <MappingFragment StoreEntitySet="Appointments">
-          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="FK_Doctor" ColumnName="FK_Doctor" />
-          <ScalarProperty Name="FK_User_Appointed" ColumnName="FK_User_Appointed" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Appointments_Service">
       <EntityTypeMapping TypeName="dbModel.Appointments_Service">
         <MappingFragment StoreEntitySet="Appointments_Service">
@@ -81,6 +70,17 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="dbModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="FK_Doctor" ColumnName="FK_Doctor" />
+          <ScalarProperty Name="FK_User_Appointed" ColumnName="FK_User_Appointed" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

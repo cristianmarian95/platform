@@ -8,7 +8,7 @@ using Application.Models;
 
 namespace Application.Controllers
 {
-    [Authorize]
+  
     public class ServiceController : Controller
     {
         private readonly dbEntities _db = new dbEntities();
@@ -21,6 +21,24 @@ namespace Application.Controllers
                 Services = _db.Services.ToList()
             });
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult View(Guid? id = null)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (_db.Services.Any(Service => Service.Id.Equals(id.Value)))
+            {
+                return View(_db.Services.FirstOrDefault(Service => Service.Id.Equals(id.Value)));
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
         [HttpGet]
         public ActionResult Create()

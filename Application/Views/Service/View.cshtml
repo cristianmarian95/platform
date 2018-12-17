@@ -1,0 +1,19 @@
+﻿@model Application.Models.Service
+@{ ViewBag.Title = Model.Name.ToString(); }
+
+<div class="container mt-5 p-3 border rounded bg-light">
+    @Html.Partial("_Alerts")
+    <div class="row">
+        <div class="col col-sm-12 col-md-5 border-right">
+            <img src="https://via.placeholder.com/450x200" width="450" height="200"/>
+        </div>
+        <div class="col col-sm-12 col-md-7">
+            <h2>@Model.Name</h2>
+            <h6>Service details</h6>
+            <p>@(new HtmlString(Model.Description))</p>
+            <h5>Service price: @Model.Price lei</h5>
+            <h6>Create Appointment</h6>
+            @Html.Partial("Partial/_CreateAppointment", new Application.Models.CreateAppointmentModel {Id = Model.Id})
+        </div>
+    </div>
+</div>
