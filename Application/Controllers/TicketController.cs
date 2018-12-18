@@ -102,6 +102,7 @@ namespace Application.Controllers
 
             if (model.Content == null)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Ticket");
             }
 
@@ -130,11 +131,13 @@ namespace Application.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("View", "Ticket");
             }
 
             if (model.Content == null)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Ticket");
             }
 
