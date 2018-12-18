@@ -67,6 +67,7 @@ namespace Application.Controllers
             _db.Categories.Remove(category);
             _db.SaveChanges();
 
+            TempData["success"] = "Category deleted";
             return RedirectToAction("Index", "Category");
         }
 
@@ -89,6 +90,7 @@ namespace Application.Controllers
             _db.Categories.Add(cat);
             _db.SaveChanges();
 
+            TempData["success"] = "Category created";
             return RedirectToAction("Index", "Category");
         }
 
@@ -113,6 +115,7 @@ namespace Application.Controllers
             _db.Entry(category).State = EntityState.Modified;
             _db.SaveChanges();
 
+            TempData["success"] = "Category edited";
             return RedirectToAction("Index", "Category");
         }
     }

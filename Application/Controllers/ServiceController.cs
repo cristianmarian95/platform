@@ -84,12 +84,14 @@ namespace Application.Controllers
 
             if (service == null)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Service");
             }
 
             _db.Services.Remove(service);
             _db.SaveChanges();
 
+            TempData["success"] = "Service deleted";
             return RedirectToAction("Index", "Service");
         }
 
@@ -99,11 +101,13 @@ namespace Application.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Service");
             }
 
             if (model.Description == null)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Service");
             }
 
@@ -121,6 +125,7 @@ namespace Application.Controllers
             _db.Services.Add(service);
             _db.SaveChanges();
 
+            TempData["success"] = "Service create";
             return RedirectToAction("Index", "Service");
         }
 
@@ -131,17 +136,20 @@ namespace Application.Controllers
         {
             if (!ModelState.IsValid)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Service");
             }
 
             if (model.Description == null)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Service");
             }
 
             var service = _db.Services.FirstOrDefault(x => x.Id.Equals(model.Id));
             if (service == null)
             {
+                TempData["danger"] = "Error";
                 return RedirectToAction("Index", "Service");
             }
 
@@ -155,6 +163,7 @@ namespace Application.Controllers
             _db.Entry(service).State = EntityState.Modified;
             _db.SaveChanges();
 
+            TempData["success"] = "Service edited";
             return RedirectToAction("Index", "Service");
         }
 
