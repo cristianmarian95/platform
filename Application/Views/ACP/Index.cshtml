@@ -1,0 +1,44 @@
+﻿@model ICollection<Application.Models.User>
+@{
+    ViewBag.Title = "ACP";
+}
+
+
+<div class="container mt-5 p-3 border rounded bg-light">
+    <h4>Users List</h4>
+    @if (Model.ToList().Count() == 0)
+    {
+        <center>
+            <h5 class="text-info">No users to display</h5>
+        </center>
+    }
+    else
+    {
+        <table class="table table-striped border rounded">
+            <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Group</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var User in Model.ToList())
+            {
+                <tr>
+                    <td>@User.Name</td>
+                    <td>@User.Email</td>
+                    <td>@User.Phone</td>
+                    <th>@User.Group</th>
+                    <td>
+                        <a href="@Url.Action("User", "ACP", new {id = User.Id})" class="btn btn-sm btn-danger">Details</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+
+</div>
