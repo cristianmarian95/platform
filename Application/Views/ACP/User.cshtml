@@ -1,0 +1,57 @@
+﻿
+@using Application.Models
+@using Microsoft.Ajax.Utilities
+@model Application.Models.AdminProfileModel
+@{ ViewBag.Title = Model.FullName; }
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col col-sm-12 col-md-10 col-lg-10 p-3 bg-light rounded border">
+            @Html.Partial("_Alerts")
+            <div class="row">
+                <div class="col col-sm-12 col-md-12 p3">
+                    @using (Html.BeginForm("UpdateUser", "ACP"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Email)
+                            @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(Model => Model.Adddress, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.FullName)
+                            @Html.TextBoxFor(Model => Model.FullName, new { @class = "form-control", @placeholder = "Full name" })
+                            @Html.ValidationMessageFor(Model => Model.FullName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.CNP)
+                            @Html.TextBoxFor(Model => Model.CNP, new { @class = "form-control", @placeholder = "CNP" })
+                            @Html.ValidationMessageFor(Model => Model.CNP, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Phone)
+                            @Html.TextBoxFor(Model => Model.Phone, new { @class = "form-control", @placeholder = "Phone number" })
+                            @Html.ValidationMessageFor(Model => Model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Adddress)
+                            @Html.TextBoxFor(Model => Model.Adddress, new { @class = "form-control", @placeholder = "Address" })
+                            @Html.ValidationMessageFor(Model => Model.Adddress, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(Model => Model.Group)
+                            @Html.TextBoxFor(Model => Model.Group, new { @class = "form-control"})
+                            @Html.ValidationMessageFor(Model => Model.Adddress, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.HiddenFor(Model => Model.Id)
+                            <button type="submit" class="btn btn-info">Update</button>
+                            <a href="@Url.Action("DeleteUser", "ACP", new {id = Model.Id})" class="btn btn-info">Delete</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

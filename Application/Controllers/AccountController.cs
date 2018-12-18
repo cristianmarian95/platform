@@ -122,6 +122,8 @@ namespace Application.Controllers
                 Data.CNP = Model.CNP;
                 Data.Phone = Model.Phone;
 
+                _db.SaveChanges();
+
                 TempData["success"] = "Updated personal information.";
                 return RedirectToAction("MyProfile", "Home");
 

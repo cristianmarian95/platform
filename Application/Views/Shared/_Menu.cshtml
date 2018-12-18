@@ -13,6 +13,7 @@
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("MyProfile", "Home")">My Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="@Url.Action("MyServices", "Appointment")">My Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Ticket")">My Tickets</a></li>
                     if (Application.Helpers.Utility.IsDoctor())
                      {
                          <li class="nav-item dropdown">
@@ -31,10 +32,10 @@
                                  Admin
                              </a>
                              <div class="dropdown-menu" aria-labelledby="doctor">
-                                 <a class="dropdown-item" href="#">Users</a>
-                                 <a class="dropdown-item" href="#">Category</a>
-                                 <a class="dropdown-item" href="#">Service</a>
-                                 <a class="dropdown-item" href="#">Tickets</a>
+                                 <a class="dropdown-item" href="@Url.Action("Index", "ACP")">Users</a>
+                                 <a class="dropdown-item" href="@Url.Action("Index", "Category")">Category</a>
+                                 <a class="dropdown-item" href="@Url.Action("Index", "Service")">Service</a>
+                                 <a class="dropdown-item" href="@Url.Action("Admin", "Ticket")">Tickets</a>
                              </div>
                          </li>
                      }

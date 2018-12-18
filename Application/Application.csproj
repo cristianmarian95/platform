@@ -158,6 +158,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ACPController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Helpers\Groups.cs" />
     <Compile Include="Helpers\Permission.cs" />
     <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Models\AdminProfileModel.cs" />
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -345,6 +347,8 @@
     <Content Include="Views\Service\Partial\_CreateAppointment.cshtml" />
     <Content Include="Views\Appointment\MyServices.cshtml" />
     <Content Include="Views\Appointment\Confirm.cshtml" />
+    <Content Include="Views\ACP\Index.cshtml" />
+    <Content Include="Views\ACP\User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
