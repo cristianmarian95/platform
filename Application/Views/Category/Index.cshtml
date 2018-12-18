@@ -2,23 +2,69 @@
 @{
     ViewBag.Title = "Category";
 }
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-12">
-            @Html.Partial("_Alerts")
+<div class="container mt-5 p-3 border rounded bg-light">
+    @Html.Partial("_Alerts")
 
-            <a href="Category/Create" class="btn btn-info">Creaza Categorie</a>
+    <a href="Category/Create" class="btn btn-info mb-4 mt-3">Creaza Categorie</a>
 
+    @if (Model.Categories.Count == 0)
+    {
+        <center>
+            <h5 class="text-info">No tickets to display</h5>
+        </center>
+    }
+    else
+    {
+        <table class="table table-striped border rounded">
+        <thead>
+        <tr>
+            <th>Category Name</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
             @foreach (var category in @Model.Categories)
             {
-                <div class="alert alert-primary mt-3" role="alert">
-                    <a href="Category/Delete/@category.Id">Delete</a>
-                    <a style="margin-left: 20px;" href="Category/Edit/@category.Id">@category.Name</a>
-                </div>
+            <tr>
+                <td>@category.Name</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a class="btn btn-sm btn-info" href="../../@Url.Action("Edit", "Category", new { id = category.Id})">Edit</a>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "Category", new { id = category.Id})">Close</a>
+                </td>
+            </tr>
             }
-        </div>
-        
-    </div>
+        </tbody>
+        </table>
+    }
+
 </div>
 
 

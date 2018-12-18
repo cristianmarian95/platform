@@ -3,29 +3,71 @@
     ViewBag.Title = "Ticket List";
 }
 
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-12">
-            @Html.Partial("_Alerts")
+<div class="container mt-5 p-3 border rounded bg-light">
+    <h4>My Tickets</h4>
+    @Html.Partial("_Alerts")
 
-            <a href="Ticket/Create" class="btn btn-info">Creaza Ticket</a>
-
-            @foreach (var ticket in @Model.Ticktes)
-            {
-                if (!ticket.IsClosed)
+    <a href="Ticket/Create" class="btn btn-info mb-5">Creaza Ticket</a>
+    
+    @if (Model.Ticktes.Count == 0)
+    {
+        <center>
+            <h5 class="text-info">No tickets to display</h5>
+        </center>
+    }
+    else
+    {
+        <table class="table table-striped border rounded">
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in @Model.Ticktes)
                 {
-                    <div class="alert alert-success mt-3" role="alert">
-                        <a href="Ticket/View/@ticket.Id">@ticket.Title</a>
-                    </div>
+                <tr>
+                    <td>@ticket.Title</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @if (!ticket.IsClosed)
+                        {
+                            <span class="badge badge-success">Open</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">Close</span>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-info" href="@Url.Action("View", "Ticket", new { id = ticket.Id})">View</a>
+                        <a class="btn btn-sm btn-danger" href="@Url.Action("CloseTicket", "Ticket", new { idTicket = ticket.Id})">Close</a>
+                    </td>
+                </tr>
                 }
-                else
-                {
-                    <div class="alert alert-danger mt-3" role="alert">
-                        <a href="Ticket/View/@ticket.Id">@ticket.Title</a>
-                    </div>
-                }
-            }
-        </div>
-
-    </div>
+            </tbody>
+        </table>
+    }
+    
 </div>

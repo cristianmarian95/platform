@@ -12,17 +12,21 @@
     }
     else
     {
-        foreach (var service in Model.ToList())
+        <div class="row">
+        @foreach (var service in Model.ToList())
          {
-             <div class="card" style="width: 18rem;min-height: 300px;min-height: 300px">
-                 <img class="card-img-top" width="286" height="150" src="https://via.placeholder.com/286x150" alt="@service.Name">
-                 <div class="card-body">
-                     <h5 class="card-title">@service.Name</h5>
-                     <p class="card-text">Price: @service.Price lei</p>
-                     <a href="@Url.Action("View", "Service", new { id = service.Id })" class="btn btn-primary">Details</a>
+             <div class="col-md-4">
+                 <div class="card" style="width: 18rem;min-height: 300px;min-height: 300px">
+                     <img class="card-img-top" width="286" height="150" src="https://via.placeholder.com/286x150" alt="@service.Name">
+                     <div class="card-body">
+                         <h5 class="card-title">@service.Name</h5>
+                         <p class="card-text">Price: @service.Price lei</p>
+                         <a href="@Url.Action("View", "Service", new { id = service.Id })" class="btn btn-primary">Details</a>
+                     </div>
                  </div>
              </div>
-         }
+            }
+        </div>
     }
 
 </div>
